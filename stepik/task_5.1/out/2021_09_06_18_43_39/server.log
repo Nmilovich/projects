@@ -1,0 +1,3 @@
+[09-06 18:43:40,405, 2375] main.Main Starting at http://127.0.0.1:8080
+[09-06 18:43:40,857, 2827] main.Main Server started
+[09-06 18:43:56,559, 18529] servlet.AccountServlet Limit: 10
