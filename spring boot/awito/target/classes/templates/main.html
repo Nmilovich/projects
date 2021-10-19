@@ -1,0 +1,40 @@
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<form th:action="@{/authentication}" method="get">
+    <input type="submit" value="Аутентификация"/>
+</form>
+<table cellspacing="1000" cellpadding="1000">
+    <thead>
+    <tr>
+        <th> Ad</th>
+        <th> Username</th>
+        <th> Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${ad.empty}">
+        <td colspan="2"> Ничего не найдено</td>
+    </tr>
+    <tr th:each="ad : ${ad}" cellspacing="1000" cellpadding="200">
+        <td><span th:text="${ad.getNameAd}"> Ad </span></td>
+        <td><span th:text="${ad.getUsername}"> Username </span></td>
+        <td><span th:text="${ad.getPrice}"> Price </span></td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+
+</body>
+</html>

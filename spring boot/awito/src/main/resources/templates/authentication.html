@@ -1,0 +1,26 @@
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:action="@{/login}" method="post">
+        <input type="submit" value="Вход"/>
+    </form>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Выход"/>
+    </form>
+    <form th:action="@{/registration}" method="get">
+        <input type="submit" value="Регистрация"/>
+    </form>
+    <form th:action="@{/account}" method="get">
+        <input type="submit" value="Аккаунт"/>
+    </form>
+
+</body>
+</html>
