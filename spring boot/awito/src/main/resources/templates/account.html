@@ -5,11 +5,20 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Account</title>
 </head>
 
 <body>
+
+    <form th:action="@{/profile/} + ${username}" method="get">
+        <input type="submit" value="Аккаунт"/>
+    </form>
+
 Разместите объявление
+
+    <p th:each="message: ${adNameError}" th:text="${adNameError}"></p>
+    <p th:each="message: ${priceError}" th:text="${priceError}"></p>
+
     <form th:action="@{/account}" method="post">
         <div><label> название товара : <input type="text" name="adName"/> </label></div>
         <div><label> цена : <input type="text" name="price"/> </label></div>
@@ -19,6 +28,7 @@
     <form th:action="@{/back}" method="get">
         <input type="submit" value="Объявления"/>
     </form>
+
 
 </body>
 

@@ -27,7 +27,7 @@
     <loaded-nodes>
       <connection connection-id="ccaf3230-359a-42d1-9f56-2821e657acd1">
         <schema name="pg_catalog" object-types="table, view, function" />
-        <schema name="public" object-types="table, view, sequence, function, column" />
+        <schema name="public" object-types="table, view, function, column" />
       </connection>
     </loaded-nodes>
   </component>
@@ -36,7 +36,10 @@
       <console name="Connection" type="STANDARD" schema="public" session="Main"><![CDATA[select * from usr;
 select * from ad;
 select * from user_role
-delete from ad where id = 7;]]></console>
+select * from flyway_schema_history
+delete from ad where id = 10;
+update user_role set roles = 'ADMIN' where user_id = 1
+delete from flyway_schema_history where checksum = -2115201811]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">

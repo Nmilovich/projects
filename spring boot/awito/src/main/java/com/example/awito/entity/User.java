@@ -8,97 +8,134 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 @Entity
 @Table(name = "usr")
 public class User implements UserDetails {
-        @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        private Long id;
-        private String username;
-        private String password;
-        private String email;
-        private boolean active;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-        //fetch - подгрузка ролей
-        @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-        @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-        @Enumerated(EnumType.STRING)
-        private Set<Role> roles;
+    @NotBlank(message = "User name cannot be empty")
+    private String username;
 
-        public User() {}
+    @NotBlank(message = "Password cannot be empty")
+    private String password;
 
-        public Long getId() {
-            return id;
-        }
+    private boolean active;
+    private boolean Banned = false;
 
-        public void setId(Long id) {
-            this.id = id;
-        }
+    @Email(message = "Email is not correct")
+    @NotBlank(message = "Email cannot be empty")
+    private String email;
+    private String activationCode;
 
-        public String getUsername() {
-            return username;
-        }
+    //fetch - подгрузка ролей
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
-        public void setUsername(String username) {
-            this.username = username;
-        }
+    public User() {
+    }
 
+    public Long getId() {
+        return id;
+    }
 
-        public String getPassword() {
-            return password;
-        }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-        public void setPassword(String password) {
-            this.password = password;
-        }
+    public String getUsername() {
+        return username;
+    }
 
-        public String getEmail() {
-            return email;
-        }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-        public void setEmail(String email) {
-            this.email = email;
-        }
+    public String getPassword() {
+        return password;
+    }
 
-        public boolean isActive() {
-            return active;
-        }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-        public void setActive(boolean active) {
-            this.active = active;
-        }
+    public String getEmail() {
+        return email;
+    }
 
-        public Set<Role> getRoles() {
-            return roles;
-        }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-        public void setRoles(Set<Role> roles) {
-            this.roles = roles;
-        }
+    public boolean isActive() {
+        return active;
+    }
 
-        //Указывает, истек ли срок действия учетных данных (пароля) пользователя.
-        @Override
-        public boolean isAccountNonExpired() {
-            return true;
-        }
-        //Указывает, заблокирован или разблокирован пользователь
-        @Override
-        public boolean isAccountNonLocked() {
-            return true;
-        }
-        //Указывает, истек ли срок действия учетной записи пользователя.
-        @Override
-        public boolean isCredentialsNonExpired() {
-            return true;
-        }
-        //Указывает, включен или отключен пользователь.
-        @Override
-        public boolean isEnabled() {
-            return isActive();
-        }
-        //Возвращает полномочия, предоставленные пользователю.
-        @Override
-        public Collection<? extends GrantedAuthority> getAuthorities() {
-            return getRoles();
-        }
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public boolean isAdmin() {
+        return this.getRoles().contains(Role.ADMIN);
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public boolean isBanned() {
+        return Banned;
+    }
+
+    public void setBanned(boolean banned) {
+        Banned = banned;
+    }
+
+    public String getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
+    }
+
+    //Указывает, истек ли срок действия учетных данных (пароля) пользователя.
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    //Указывает, заблокирован или разблокирован пользователь
+    @Override
+    public boolean isAccountNonLocked() {
+        return !Banned;
+    }
+
+    //Указывает, истек ли срок действия учетной записи пользователя.
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    //Указывает, включен или отключен пользователь.
+    @Override
+    public boolean isEnabled() {
+        return isActive();
+    }
+
+    //Возвращает полномочия, предоставленные пользователю.
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
 }

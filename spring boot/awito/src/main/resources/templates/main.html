@@ -5,21 +5,33 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Awito</title>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="/static/styletable.css" rel="stylesheet"  type="text/css">
 </head>
+
+
+
 <body>
+
+    <form th:if="${isAdmin} == true" th:action="@{/}" method="post">
+        <p>administrator</p>
+        <div><label> UserID : <input type="number" name="userId"/> </label></div>
+        <div><input type="submit" value="Забинить"/></div>
+    </form>
 
 <form th:action="@{/authentication}" method="get">
     <input type="submit" value="Аутентификация"/>
 </form>
-<!-- разобраться с размерами -->
-<table cellspacing="10" cellpadding="10">
+
+<table >
     <thead>
     <tr>
         <th> Ad</th>
         <th> Username</th>
         <th> Price</th>
+        <th th:if="${isAdmin} == true">User_id</th>
     </tr>
     </thead>
     <tbody>
@@ -27,9 +39,10 @@
         <td colspan="2"> Ничего не найдено</td>
     </tr>
     <tr th:each="ad : ${ad}" >
-        <td><span th:text="${ad.getNameAd}"> Ad </span></td>
-        <td><span th:text="${ad.getUsername}"> Username </span></td>
+        <td><span th:text="${ad.getAdName}"> Ad </span></td>
+        <td><span th:text="${ad.getAuthor}"> Username </span></td>
         <td><span th:text="${ad.getPrice}"> Price </span></td>
+        <td th:if="${isAdmin} == true"><span th:text="${ad.getUserId}"> User_id </span></td>
     </tr>
     </tbody>
 </table>

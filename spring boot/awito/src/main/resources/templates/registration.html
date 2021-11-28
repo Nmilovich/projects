@@ -5,16 +5,30 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Registration</title>
+
+    <!-- reCAPTCHA -->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
 <div>
-    <div th:if="${message}">Имя занятно</div>
+
+    <p th:each="message: ${passwordError}" th:text="${passwordError}"></p>
+    <p th:each="message: ${usernameError}" th:text="${usernameError}"></p>
+    <p th:each="message: ${password2Error}" th:text="${password2Error}"></p>
+    <p th:each="message: ${emailError}" th:text="${emailError}"></p>
+
 </div>
 <form th:action="@{/registration}" method="post">
     <div><label> User Name : <input type="text" name="username"/> </label></div>
     <div><label> Password: <input type="password" name="password"/> </label></div>
+    <div><label> Repeat the password: <input type="password" name="password2"/> </label></div>
+    <div><label> Email: <input type="email" name="email"/> </label></div>
     <div><input type="submit" value="создать"/></div>
+    <div>
+        <div class="g-recaptcha" data-sitekey=""></div>
+        <span th:if="${captchaError}" th:text="${captchaError}"></span>
+    </div>
 </form>
 </body>
 </html>

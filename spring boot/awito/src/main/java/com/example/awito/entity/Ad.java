@@ -1,6 +1,10 @@
 package com.example.awito.entity;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 public class Ad {
@@ -13,8 +17,12 @@ public class Ad {
     @JoinColumn(name = "user_id")
     private User author;
 
+    @NotBlank(message = "name cannot be empty")
+    @Length(max = 80, message = "text too long")
     private String adName;
 
+    @NotNull(message = "price cannot be empty")
+    @Range(min = 1, max = 1_000_000, message = "incorrect range (1 - 1000000)")
     private Integer price;
 
     public Ad() {}
@@ -33,20 +41,23 @@ public class Ad {
         this.id = id;
     }
 
-    public String getUsername() {
+    public String getAuthor() {
         return author.getUsername();
     }
+    public Long getUserId(){
+        return author.getId();
+    }
 
-    public void setUsername(User user) {
+    public void setAuthor(User user) {
         this.author = user;
     }
 
-    public String getNameAd() {
+    public String getAdName() {
         return adName;
     }
 
-    public void setNameAd(String nameAd) {
-        this.adName = nameAd;
+    public void setAdName(String adName) {
+        this.adName = adName;
     }
 
     public Integer getPrice() {

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/XSL/Transform">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+    <form th:action="@{/profile/} + ${username}" method="post">
+        <span th:text="${username}"></span>
+
+        <div>
+            <input type="password" name="password" placeholder="Password">
+            <input type="email" name="email" placeholder="some@some.com" th:value="${email}">
+            <div><input type="submit" value="сохранить"/></div>
+        </div>
+    </form>
+
+    <form th:action="@{/back}" method="get">
+        <input type="submit" value="Объявления"/>
+    </form>
+
+</body>
+</html>
